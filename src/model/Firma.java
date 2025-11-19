@@ -28,7 +28,7 @@ public class Firma {
     public void removeDeltager(Deltager deltager) {
         if (deltagere.contains(deltager)) {
             deltagere.remove(deltager);
-            deltager.setFirma(this);
+            deltager.setFirma(null);
         }
     }
 

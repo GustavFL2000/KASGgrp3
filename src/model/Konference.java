@@ -45,11 +45,13 @@ public class Konference {
         }
     }
 
-    public Udflugt createUdflugt(String udflugtName) {
-        Udflugt udflugt = new Udflugt("Udflugt test", 200, LocalDate.now(), new ArrayList<>(), this);
-        udflugter.add(udflugt);
-        return udflugt;
+    public Udflugt createUdflugt(String navn, int pris, LocalDate tidspunkt) {
+        Udflugt u = new Udflugt(navn, pris, tidspunkt, this);
+        udflugter.add(u);
+        return u;
     }
+
+
 
     public void removeUdflugt(Udflugt udflugt) {
         if (udflugter.contains(udflugt)) {

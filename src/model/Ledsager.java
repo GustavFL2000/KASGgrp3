@@ -1,4 +1,22 @@
 package model;
 
+import java.util.ArrayList;
+
 public class Ledsager {
+    private String navn;
+
+    private ArrayList<Udflugt> udflugter = new ArrayList<>();
+
+    public void addUdflugt(Udflugt udflugt) {
+        if (!udflugter.contains(udflugt)) {
+            udflugter.add(udflugt);
+            udflugt._addLedsager(this); // ingen gensidig kald!
+        }
+    }
+
+    void _addUdflugt(Udflugt udflugt) {
+        udflugter.add(udflugt);
+    }
+
+
 }

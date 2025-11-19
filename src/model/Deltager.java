@@ -9,7 +9,7 @@ public class Deltager {
     private String email;
     private String telefon;
     private boolean erForedragsholder;
-
+    private Ledsager ledsager;
     private final ArrayList<Tilmelding> tilmeldinger= new ArrayList<>();
     private Firma firma;
 

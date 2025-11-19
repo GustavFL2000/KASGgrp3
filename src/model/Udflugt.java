@@ -10,16 +10,28 @@ public class Udflugt {
     private ArrayList<Ledsager> ledsagere = new ArrayList<>();
     private Konference konference;
 
-    public Udflugt(String navn, int pris, LocalDate tidspunkt, ArrayList<Ledsager> ledsagere, Konference konference) {
+    public Udflugt(String navn, int pris, LocalDate tidspunkt, Konference konference) {
         this.navn = navn;
         this.pris = pris;
         this.tidspunkt = tidspunkt;
-        this.ledsagere = ledsagere;
         this.konference = konference;
     }
-public Konference getKonference(){
+
+
+    public Konference getKonference() {
         return konference;
-}
+    }
+
+    public void addLedsager(Ledsager l) {
+        if (!ledsagere.contains(l)) {
+            ledsagere.add(l);
+            l._addUdflugt(this); // ensrettet kald
+        }
+    }
+
+    void _addLedsager(Ledsager l) {
+        ledsagere.add(l);
+    }
 
 
 }
