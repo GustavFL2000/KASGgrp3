@@ -6,8 +6,8 @@
   <component name="ChangeListManager">
     <list default="true" id="5e2ac9ed-d05e-4ade-b900-2f7e3038040e" name="Changes" comment="Oprettet &quot;Ledsager&quot;">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/model/Adminstrator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/Adminstrator.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/model/Konference.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/Konference.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/model/Deltager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/Deltager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/model/Firma.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/Firma.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -26,12 +26,12 @@
     &quot;assignee&quot;: &quot;haon02&quot;
   }
 }</component>
-  <component name="GithubPullRequestsUISettings">{
-  &quot;selectedUrlAndAccountId&quot;: {
-    &quot;url&quot;: &quot;https://github.com/GustavFL2000/KASGgrp3.git&quot;,
-    &quot;accountId&quot;: &quot;38fe0d56-784e-4cd6-8b84-06b0c93c50e0&quot;
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/GustavFL2000/KASGgrp3.git",
+    "accountId": "a87361ce-942a-4756-8cd3-042006455c4f"
   }
-}</component>
+}]]></component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 1
 }</component>
@@ -39,17 +39,17 @@
   <component name="ProjectViewState">
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ModuleVcsDetector.initialDetectionPerformed": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "main",
-    "ignore.virus.scanning.warn.message": "true",
-    "kotlin-language-version-configured": "true",
-    "settings.editor.selected.configurable": "editor.preferences.completion"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;editor.preferences.completion&quot;
   }
-}]]></component>
+}</component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
