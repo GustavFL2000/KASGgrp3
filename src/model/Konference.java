@@ -31,13 +31,28 @@ public class Konference {
         return udflugter;
     }
 
-    public Udflugt createUdflugt(String udflugtName){
-        Udflugt udflugt = new Udflugt("Udflugt test",200,LocalDate.now(), new ArrayList<>(),this);
+    public void setAdminstrator(Adminstrator adminstrator) {
+        if (this.adminstrator != adminstrator) {
+            Adminstrator oldAdmin = this.adminstrator;
+            if (oldAdmin != null) {
+                oldAdmin.removeKonference(this);
+            }
+
+            this.adminstrator = adminstrator;
+            if (adminstrator != null) {
+                adminstrator.addKonference(this);
+            }
+        }
+    }
+
+    public Udflugt createUdflugt(String udflugtName) {
+        Udflugt udflugt = new Udflugt("Udflugt test", 200, LocalDate.now(), new ArrayList<>(), this);
         udflugter.add(udflugt);
         return udflugt;
     }
-    public void removeUdflugt(Udflugt udflugt){
-        if (udflugter.contains(udflugt)){
+
+    public void removeUdflugt(Udflugt udflugt) {
+        if (udflugter.contains(udflugt)) {
             udflugter.remove(udflugt);
         }
     }
