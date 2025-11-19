@@ -11,7 +11,7 @@ public class Deltager {
     private boolean erForedragsholder;
 
     private final ArrayList<Tilmelding> tilmeldinger= new ArrayList<>();
-
+    private Firma firma;
 
     public Deltager(String navn, String adresse, String nationalitet, String email, String telefon, boolean erForedragsholder) {
         this.navn = navn;
@@ -20,6 +20,19 @@ public class Deltager {
         this.email = email;
         this.telefon = telefon;
         this.erForedragsholder = erForedragsholder;
+    }
+
+    public void setFirma(Firma firma) {
+        if (this.firma != firma) {
+            Firma oldFirma = this.firma;
+            if (oldFirma != null) {
+                oldFirma.removeDeltager(this);
+            }
+            this.firma = firma;
+            if (firma != null) {
+                firma.addDeltager(this);
+            }
+        }
     }
 
     public String getNavn() {
