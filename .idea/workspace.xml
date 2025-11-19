@@ -4,14 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5e2ac9ed-d05e-4ade-b900-2f7e3038040e" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-<<<<<<< HEAD
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-=======
->>>>>>> b666fb054b6558eca893763fa18729cc433a45bb
-    </list>
+    <list default="true" id="5e2ac9ed-d05e-4ade-b900-2f7e3038040e" name="Changes" comment="Oprettet &quot;Ledsager&quot;" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -20,39 +13,21 @@
   <component name="CompilerWorkspaceConfiguration">
     <option name="MAKE_PROJECT_ON_SAVE" value="true" />
   </component>
-<<<<<<< HEAD
-  <component name="FileTemplateManagerImpl">
-    <option name="RECENT_TEMPLATES">
-      <list>
-        <option value="Class" />
-      </list>
-    </option>
-  </component>
-=======
->>>>>>> b666fb054b6558eca893763fa18729cc433a45bb
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
-  "lastFilter": {
-    "state": "OPEN",
-<<<<<<< HEAD
-    "assignee": "GustavFL2000"
-=======
-    "assignee": "haon02"
->>>>>>> b666fb054b6558eca893763fa18729cc433a45bb
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;haon02&quot;
   }
-}]]></component>
-  <component name="GithubPullRequestsUISettings"><![CDATA[{
-  "selectedUrlAndAccountId": {
-    "url": "https://github.com/GustavFL2000/KASGgrp3.git",
-<<<<<<< HEAD
-    "accountId": "a2e4290a-2de0-43bd-855f-3c5d213d0dd8"
-=======
-    "accountId": "38fe0d56-784e-4cd6-8b84-06b0c93c50e0"
->>>>>>> b666fb054b6558eca893763fa18729cc433a45bb
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/GustavFL2000/KASGgrp3.git&quot;,
+    &quot;accountId&quot;: &quot;38fe0d56-784e-4cd6-8b84-06b0c93c50e0&quot;
   }
-}]]></component>
+}</component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 1
 }</component>
@@ -64,13 +39,8 @@
   "keyToString": {
     "ModuleVcsDetector.initialDetectionPerformed": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-<<<<<<< HEAD
-    "git-widget-placeholder": "main",
-=======
     "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "main",
     "ignore.virus.scanning.warn.message": "true",
->>>>>>> b666fb054b6558eca893763fa18729cc433a45bb
     "kotlin-language-version-configured": "true",
     "settings.editor.selected.configurable": "editor.preferences.completion"
   }

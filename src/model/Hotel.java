@@ -3,7 +3,6 @@ package model;
 import java.util.ArrayList;
 
 public class Hotel {
-
     private String name;
     private String adresse;
     private String beskrivelse;
