@@ -15,7 +15,7 @@ public class Konference {
     private ArrayList<Hotel> hoteller = new ArrayList<>();
     private Adminstrator adminstrator;
 
-    public Konference(String navn, String sted, LocalDate startDato, LocalDate slutDato, int dagsPris, ArrayList<Tilmelding> tilmeldinger, ArrayList<Udflugt> udflugter, ArrayList<Hotel> hoteller, Adminstrator adminstrator) {
+    public Konference(String navn, String sted, LocalDate startDato, LocalDate slutDato, int dagsPris, Adminstrator adminstrator) {
         this.navn = navn;
         this.sted = sted;
         this.startDato = startDato;
