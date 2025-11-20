@@ -63,6 +63,10 @@ public class Deltager {
         return ledsager;
     }
 
+    public Firma getFirma() {
+        return firma;
+    }
+
     public void setLedsager(Ledsager ledsager) {
         this.ledsager = ledsager;
     }

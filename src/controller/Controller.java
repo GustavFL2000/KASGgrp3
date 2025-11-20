@@ -11,8 +11,8 @@ public class Controller {
     // -------------------------------------------------------------------------
     // Konference
 
-    public static Konference createKonference(String navn, String sted, LocalDate startDato, LocalDate slutDato, int dagsPris) {
-        Konference konference = new Konference(navn, sted, startDato, slutDato, dagsPris);
+    public static Konference createKonference(String navn, String sted, LocalDate startDato, LocalDate slutDato, int dagsPris, Administrator administrator) {
+        Konference konference = new Konference(navn, sted, startDato, slutDato, dagsPris, administrator);
         Storage.addKonference(konference);
         return konference;
     }
@@ -138,9 +138,171 @@ public class Controller {
     }
 
     // -------------------------------------------------------------------------
+    // Prisberegning
+
+    public static double calculateTotalPrice(Tilmelding tilmelding) {
+        return tilmelding.getTotalPris();
+    }
+
+    // -------------------------------------------------------------------------
+    // Oversigter
+
+    public static String getParticipantsOverview(Konference konference) {
+        StringBuilder sb = new StringBuilder();
+        sb.append(String.format("Deltageroversigt for Konference: %s (%s - %s)\n",
+                konference.getNavn(), konference.getStartDato(), konference.getSlutDato()));
+        sb.append("---------------------------------------------------------------------------------\n");
+
+        ArrayList<Tilmelding> tilmeldinger = new ArrayList<>(konference.getTilmeldinger());
+        tilmeldinger.sort((t1, t2) -> t1.getDeltager().getNavn().compareTo(t2.getDeltager().getNavn()));
+
+        for (Tilmelding tilmelding : tilmeldinger) {
+            Deltager deltager = tilmelding.getDeltager();
+            sb.append(String.format("Deltager: %s (Tlf: %s, Email: %s)\n",
+                    deltager.getNavn(), deltager.getTelefon(), deltager.getEmail()));
+            if (deltager.getFirma() != null) {
+                sb.append(String.format("  Firma: %s (Tlf: %s)\n",
+                        deltager.getFirma().getNavn(), deltager.getFirma().getTelefon()));
+            }
+            sb.append(String.format("  Periode: %s til %s (%d dage)\n",
+                    tilmelding.getAnkomstDato(), tilmelding.getAfrejseDato(), tilmelding.getAntalDage()));
+            if (deltager.getLedsager() != null) {
+                sb.append(String.format("  Ledsager: %s\n", deltager.getLedsager().getNavn()));
+                if (!deltager.getLedsager().getUdflugter().isEmpty()) {
+                    sb.append("    Udflugter for ledsager:\n");
+                    for (Udflugt udflugt : deltager.getLedsager().getUdflugter()) {
+                        sb.append(String.format("      - %s (Pris: %.2f kr)\n", udflugt.getNavn(), udflugt.getPris()));
+                    }
+                }
+            }
+            if (tilmelding.getHotelReservation() != null) {
+                HotelReservation hr = tilmelding.getHotelReservation();
+                sb.append(String.format("  Hotel: %s (%s, værelse: %s, pris: %.2f kr)\n",
+                        hr.getHotel().getNavn(), hr.getHotel().getAdresse(),
+                        hr.isDoubleRoom() ? "Dobbelt" : "Enkelt", hr.getPris()));
+                if (!hr.getHotel().getServices().isEmpty()) {
+                    sb.append("    Services:\n");
+                    for (Service service : hr.getHotel().getServices()) {
+                        sb.append(String.format("      - %s (Pris: %.2f kr)\n", service.getNavn(), service.getPris()));
+                    }
+                }
+            }
+            sb.append(String.format("  Totalpris for tilmelding: %.2f kr\n", calculateTotalPrice(tilmelding)));
+            sb.append("---------------------------------------------------------------------------------\n");
+        }
+        return sb.toString();
+    }
+
+    public static String getExcursionOverview(Konference konference) {
+        StringBuilder sb = new StringBuilder();
+        sb.append(String.format("Udflugtsoversigt for Konference: %s (%s - %s)\n",
+                konference.getNavn(), konference.getStartDato(), konference.getSlutDato()));
+        sb.append("---------------------------------------------------------------------------------\n");
+
+        for (Udflugt udflugt : konference.getUdflugter()) {
+            sb.append(String.format("Udflugt: %s (Pris: %.2f kr, Tidspunkt: %s)\n",
+                    udflugt.getNavn(), udflugt.getPris(), udflugt.getTidspunkt()));
+            sb.append("  Deltagende ledsagere:\n");
+            boolean foundLedsager = false;
+            for (Deltager deltager : Storage.getDeltagere()) { // Need to iterate all deltagere to find their ledsagere
+                Ledsager ledsager = deltager.getLedsager();
+                if (ledsager != null && ledsager.getUdflugter().contains(udflugt)) {
+                    sb.append(String.format("    - %s (Ledsager til: %s)\n", ledsager.getNavn(), deltager.getNavn()));
+                    foundLedsager = true;
+                }
+            }
+            if (!foundLedsager) {
+                sb.append("    (Ingen ledsagere tilmeldt denne udflugt)\n");
+            }
+            sb.append("---------------------------------------------------------------------------------\n");
+        }
+        return sb.toString();
+    }
+
+    public static String getHotelOverview(Konference konference) {
+        StringBuilder sb = new StringBuilder();
+        sb.append(String.format("Hoteloversigt for Konference: %s (%s - %s)\n",
+                konference.getNavn(), konference.getStartDato(), konference.getSlutDato()));
+        sb.append("---------------------------------------------------------------------------------\n");
+
+        for (Hotel hotel : konference.getHoteller()) {
+            sb.append(String.format("Hotel: %s (%s)\n", hotel.getNavn(), hotel.getAdresse()));
+            if (!hotel.getServices().isEmpty()) {
+                sb.append("  Services:\n");
+                for (Service service : hotel.getServices()) {
+                    sb.append(String.format("    - %s (Pris: %.2f kr)\n", service.getNavn(), service.getPris()));
+                }
+            }
+            sb.append("  Gæster:\n");
+            boolean foundGuest = false;
+            for (Tilmelding tilmelding : konference.getTilmeldinger()) {
+                HotelReservation hr = tilmelding.getHotelReservation();
+                if (hr != null && hr.getHotel().equals(hotel)) {
+                    Deltager deltager = tilmelding.getDeltager();
+                    sb.append(String.format("    - Deltager: %s (Værelse: %s, Pris: %.2f kr)\n",
+                            deltager.getNavn(), hr.isDoubleRoom() ? "Dobbelt" : "Enkelt", hr.getPris()));
+                    Ledsager ledsager = deltager.getLedsager();
+                    if (ledsager != null && hr.isDoubleRoom()) { // Assuming ledsager only if double room
+                        sb.append(String.format("      Ledsager: %s\n", ledsager.getNavn()));
+                    }
+                    foundGuest = true;
+                }
+            }
+            if (!foundGuest) {
+                sb.append("    (Ingen gæster på dette hotel gennem konferencen)\n");
+            }
+            sb.append("---------------------------------------------------------------------------------\n");
+        }
+        return sb.toString();
+    }
+
+    public static String getParticipantDetails(Deltager deltager) {
+        StringBuilder sb = new StringBuilder();
+        sb.append(String.format("Detaljer for Deltager: %s\n", deltager.getNavn()));
+        sb.append("---------------------------------------------------------------------------------\n");
+
+        if (deltager.getFirma() != null) {
+            sb.append(String.format("  Firma: %s (Tlf: %s)\n", deltager.getFirma().getNavn(), deltager.getFirma().getTelefon()));
+        }
+        if (deltager.getLedsager() != null) {
+            sb.append(String.format("  Ledsager: %s\n", deltager.getLedsager().getNavn()));
+            if (!deltager.getLedsager().getUdflugter().isEmpty()) {
+                sb.append("    Udflugter for ledsager:\n");
+                for (Udflugt udflugt : deltager.getLedsager().getUdflugter()) {
+                    sb.append(String.format("      - %s (Pris: %.2f kr)\n", udflugt.getNavn(), udflugt.getPris()));
+                }
+            }
+        }
+
+        sb.append("\nTilmeldingshistorik:\n");
+        if (deltager.getTilmeldinger().isEmpty()) {
+            sb.append("  (Ingen tilmeldinger fundet)\n");
+        } else {
+            for (Tilmelding tilmelding : deltager.getTilmeldinger()) {
+                sb.append(String.format("  Konference: %s (%s - %s)\n",
+                        tilmelding.getKonference().getNavn(), tilmelding.getKonference().getStartDato(), tilmelding.getKonference().getSlutDato()));
+                sb.append(String.format("    Periode: %s til %s (%d dage)\n",
+                        tilmelding.getAnkomstDato(), tilmelding.getAfrejseDato(), tilmelding.getAntalDage()));
+                if (tilmelding.getHotelReservation() != null) {
+                    HotelReservation hr = tilmelding.getHotelReservation();
+                    sb.append(String.format("    Hotel: %s (%s, værelse: %s, pris: %.2f kr)\n",
+                            hr.getHotel().getNavn(), hr.getHotel().getAdresse(),
+                            hr.isDoubleRoom() ? "Dobbelt" : "Enkelt", hr.getPris()));
+                } else {
+                    sb.append("    Intet hotel reserveret.\n");
+                }
+                sb.append(String.format("    Totalpris for denne tilmelding: %.2f kr\n", calculateTotalPrice(tilmelding)));
+                sb.append("    ----------------------------------------\n");
+            }
+        }
+        sb.append("---------------------------------------------------------------------------------\n");
+        return sb.toString();
+    }
+
+    // -------------------------------------------------------------------------
     // Udflugt
 
-    public static Udflugt createUdflugtForKonference(Konference konference, String navn, int pris, LocalDate tidspunkt) {
+    public static Udflugt createUdflugtForKonference(Konference konference, String navn, double pris, LocalDate tidspunkt) {
         Udflugt udflugt = konference.createUdflugt(navn, pris, tidspunkt);
         Storage.addUdflugt(udflugt);
         return udflugt;
@@ -161,11 +323,13 @@ public class Controller {
 
         public static void initStorage() {
 
-            // Konference
+                        // Konference
 
-            Konference havOgHimmel = createKonference("Hav og Himmel", "Odense",
+                        Administrator admin = createAdministrator("Admin Navn");
 
-                    LocalDate.of(2025, 11, 28), LocalDate.of(2025, 11, 30), 1500);
+                        Konference havOgHimmel = createKonference("Hav og Himmel", "Odense",
+
+                                LocalDate.of(2025, 11, 28), LocalDate.of(2025, 11, 30), 1500, admin);
 
     
 
@@ -201,11 +365,11 @@ public class Controller {
 
             // Udflugter
 
-            createUdflugtForKonference(havOgHimmel, "Byrundtur i Odense inkl. Frokost", 125, LocalDate.of(2025, 11, 28));
+                        createUdflugtForKonference(havOgHimmel, "Byrundtur i Odense inkl. Frokost", 125.0, LocalDate.of(2025, 11, 28));
 
-            createUdflugtForKonference(havOgHimmel, "Egeskov", 75, LocalDate.of(2025, 11, 29));
+                        createUdflugtForKonference(havOgHimmel, "Egeskov", 75.0, LocalDate.of(2025, 11, 29));
 
-            createUdflugtForKonference(havOgHimmel, "Trapholt Museum, Kolding inkl. frokost", 200, LocalDate.of(2025, 11, 30));
+                        createUdflugtForKonference(havOgHimmel, "Trapholt Museum, Kolding inkl. frokost", 200.0, LocalDate.of(2025, 11, 30));
 
         }
 

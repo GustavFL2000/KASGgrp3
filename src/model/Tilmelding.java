@@ -4,34 +4,33 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class Tilmelding {
-    private int AntalDage;
+    private int antalDage;
     private LocalDate ankomstDato;
     private LocalDate afrejseDato;
-    private double totalPris;
     private Konference konference;
     private Deltager deltager;
-    private ArrayList<HotelReservation> hotelReservationer = new ArrayList<>();
+    private HotelReservation hotelReservation; // Changed to single object
 
     public Tilmelding(int antalDage, LocalDate ankomstDato, LocalDate afrejseDato, Konference konference, Deltager deltager) {
-        AntalDage = antalDage;
+        this.antalDage = antalDage;
         this.ankomstDato = ankomstDato;
         this.afrejseDato = afrejseDato;
         this.konference = konference;
         this.deltager = deltager;
     }
 
-    public double beregnTotalPris() {
+    public double getTotalPris() {
         double totalPris = 0;
 
         // Conference fee
         if (!deltager.isErForedragsholder()) {
-            totalPris += konference.getDagsPris() * AntalDage;
+            totalPris += konference.getDagsPris() * antalDage;
         }
 
         // Hotel reservation price and services
-        for (HotelReservation reservation : hotelReservationer) {
-            totalPris += reservation.getPris();
-            for (Service service : reservation.getServices()) {
+        if (hotelReservation != null) {
+            totalPris += hotelReservation.getPris();
+            for (Service service : hotelReservation.getServices()) { // Assuming HotelReservation has getServices()
                 totalPris += service.getPris();
             }
         }
@@ -42,8 +41,6 @@ public class Tilmelding {
                 totalPris += udflugt.getPris();
             }
         }
-
-        this.totalPris = totalPris;
         return totalPris;
     }
 
@@ -56,22 +53,34 @@ public class Tilmelding {
     }
 
     public int getAntalDage() {
-        return AntalDage;
+        return antalDage;
     }
 
-    public ArrayList<HotelReservation> getHotelReservation() {
-        return hotelReservationer;
+    public LocalDate getAnkomstDato() {
+        return ankomstDato;
     }
 
-    public HotelReservation createHotelreservation(boolean isDoubleRoom, double pris, Hotel hotel, Tilmelding tilmelding) {
-        HotelReservation hotelReservation = new HotelReservation(isDoubleRoom, pris, hotel, tilmelding);
-        hotelReservationer.add(hotelReservation);
+    public LocalDate getAfrejseDato() {
+        return afrejseDato;
+    }
+
+    public HotelReservation getHotelReservation() {
         return hotelReservation;
     }
 
+    public HotelReservation createHotelreservation(boolean isDoubleRoom, double pris, Hotel hotel, Tilmelding tilmelding) {
+        if (this.hotelReservation != null) {
+            // Potentially throw an exception or handle this case as per business rules
+            System.out.println("Warning: Overwriting existing hotel reservation for this Tilmelding.");
+        }
+        HotelReservation newReservation = new HotelReservation(isDoubleRoom, pris, hotel, tilmelding);
+        this.hotelReservation = newReservation;
+        return newReservation;
+    }
+
     public void removeHotelReservation(HotelReservation hotelReservation) {
-        if (hotelReservationer.contains(hotelReservation)){
-            hotelReservationer.remove(hotelReservation);
+        if (this.hotelReservation != null && this.hotelReservation.equals(hotelReservation)){
+            this.hotelReservation = null;
         }
     }
 }

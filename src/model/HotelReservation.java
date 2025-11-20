@@ -33,4 +33,12 @@ public class HotelReservation {
     public Tilmelding getTilmelding() {
         return tilmelding;
     }
+
+    public Hotel getHotel() {
+        return hotel;
+    }
+
+    public boolean isDoubleRoom() {
+        return isDoubleRoom;
+    }
 }

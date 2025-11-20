@@ -19,14 +19,14 @@ public class Administrator {
     public void addKonference(Konference konference){
         if (!konferencer.contains(konference)){
             konferencer.add(konference);
-            konference.setAdminstrator(this);
+            konference.setAdministrator(this);
         }
     }
 
     public void removeKonference(Konference konference){
         if (konferencer.contains(konference)){
             konferencer.remove(konference);
-            konference.setAdminstrator(null);
+            konference.setAdministrator(null);
         }
 
         }

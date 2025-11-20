@@ -5,12 +5,12 @@ import java.util.ArrayList;
 
 public class Udflugt {
     private String navn;
-    private int pris;
+    private double pris; // Changed to double
     private LocalDate tidspunkt;
     private ArrayList<Ledsager> ledsagere = new ArrayList<>();
     private Konference konference;
 
-    public Udflugt(String navn, int pris, LocalDate tidspunkt, Konference konference) {
+    public Udflugt(String navn, double pris, LocalDate tidspunkt, Konference konference) { // Updated constructor
         this.navn = navn;
         this.pris = pris;
         this.tidspunkt = tidspunkt;
@@ -18,8 +18,16 @@ public class Udflugt {
     }
 
 
-    public int getPris() {
+    public double getPris() { // Updated return type
         return pris;
+    }
+
+    public String getNavn() { // Added missing getter
+        return navn;
+    }
+
+    public LocalDate getTidspunkt() { // Added missing getter
+        return tidspunkt;
     }
 
     public Konference getKonference() {

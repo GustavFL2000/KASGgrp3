@@ -3,14 +3,14 @@ package model;
 import java.util.ArrayList;
 
 public class Hotel {
-    private String name;
+    private String navn;
     private String adresse;
     private String beskrivelse;
     private ArrayList<Service> services = new ArrayList<>();
     private ArrayList<HotelReservation> reservations = new ArrayList<>();
 
-    public Hotel(String name, String adresse, String beskrivelse) {
-        this.name = name;
+    public Hotel(String navn, String adresse, String beskrivelse) {
+        this.navn = navn;
         this.adresse = adresse;
         this.beskrivelse = beskrivelse;
     }
@@ -35,8 +35,8 @@ public class Hotel {
         reservations.remove(reservation);
     }
 
-    public String getName() {
-        return name;
+    public String getNavn() {
+        return navn;
     }
 
     public String getAdresse() {
@@ -54,7 +54,7 @@ public class Hotel {
     @Override
     public String toString() {
         return "Hotel{" +
-                "name='" + name + '\'' +
+                "navn='" + navn + '\'' +
                 ", adresse='" + adresse + '\'' +
                 ", beskrivelse='" + beskrivelse + '\'' +
                 ", services=" + services +

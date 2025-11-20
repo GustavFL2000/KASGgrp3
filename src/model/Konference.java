@@ -14,16 +14,39 @@ public class Konference {
     private ArrayList<Hotel> hoteller = new ArrayList<>();
     private Administrator administrator;
 
-<<<<<<< HEAD
-    public Konference(String navn, String sted, LocalDate startDato, LocalDate slutDato, int dagsPris) {
-=======
-    public Konference(String navn, String sted, LocalDate startDato, LocalDate slutDato, int dagsPris, Adminstrator adminstrator) {
->>>>>>> 932188bf8a0f3e5d82720bd217d0e15c12d78141
+
+    public Konference(String navn, String sted, LocalDate startDato, LocalDate slutDato, int dagsPris, Administrator adminstrator) {
+
         this.navn = navn;
         this.sted = sted;
         this.startDato = startDato;
         this.slutDato = slutDato;
         this.dagsPris = dagsPris;
+        this.setAdministrator(adminstrator);
+    }
+
+    public String getNavn() {
+        return navn;
+    }
+
+    public String getSted() {
+        return sted;
+    }
+
+    public LocalDate getStartDato() {
+        return startDato;
+    }
+
+    public LocalDate getSlutDato() {
+        return slutDato;
+    }
+
+    public ArrayList<Hotel> getHoteller() {
+        return new ArrayList<>(hoteller);
+    }
+
+    public ArrayList<Tilmelding> getTilmeldinger() {
+        return new ArrayList<>(tilmeldinger);
     }
 
     public int getDagsPris() {
@@ -68,7 +91,7 @@ public class Konference {
         }
     }
 
-    public Udflugt createUdflugt(String navn, int pris, LocalDate tidspunkt) {
+    public Udflugt createUdflugt(String navn, double pris, LocalDate tidspunkt) {
         Udflugt u = new Udflugt(navn, pris, tidspunkt, this);
         udflugter.add(u);
         return u;
@@ -82,7 +105,5 @@ public class Konference {
         }
     }
 
-    public void setAdminstrator(Administrator administrator) {
-        this.administrator = administrator;
-    }
+
 }
