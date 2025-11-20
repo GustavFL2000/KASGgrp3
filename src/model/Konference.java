@@ -14,7 +14,11 @@ public class Konference {
     private ArrayList<Hotel> hoteller = new ArrayList<>();
     private Administrator administrator;
 
+<<<<<<< HEAD
     public Konference(String navn, String sted, LocalDate startDato, LocalDate slutDato, int dagsPris) {
+=======
+    public Konference(String navn, String sted, LocalDate startDato, LocalDate slutDato, int dagsPris, Adminstrator adminstrator) {
+>>>>>>> 932188bf8a0f3e5d82720bd217d0e15c12d78141
         this.navn = navn;
         this.sted = sted;
         this.startDato = startDato;
