@@ -18,6 +18,10 @@ public class Udflugt {
     }
 
 
+    public int getPris() {
+        return pris;
+    }
+
     public Konference getKonference() {
         return konference;
     }
@@ -30,7 +34,9 @@ public class Udflugt {
     }
 
     void _addLedsager(Ledsager l) {
-        ledsagere.add(l);
+        if (!ledsagere.contains(l)) {
+            ledsagere.add(l);
+        }
     }
 
 

@@ -1,6 +1,5 @@
 package model;
 
-import javax.management.Attribute;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
@@ -13,34 +12,54 @@ public class Konference {
     private ArrayList<Tilmelding> tilmeldinger = new ArrayList<>();
     private ArrayList<Udflugt> udflugter = new ArrayList<>();
     private ArrayList<Hotel> hoteller = new ArrayList<>();
-    private Adminstrator adminstrator;
+    private Administrator administrator;
 
-    public Konference(String navn, String sted, LocalDate startDato, LocalDate slutDato, int dagsPris, ArrayList<Tilmelding> tilmeldinger, ArrayList<Udflugt> udflugter, ArrayList<Hotel> hoteller, Adminstrator adminstrator) {
+    public Konference(String navn, String sted, LocalDate startDato, LocalDate slutDato, int dagsPris) {
         this.navn = navn;
         this.sted = sted;
         this.startDato = startDato;
         this.slutDato = slutDato;
         this.dagsPris = dagsPris;
-        this.tilmeldinger = tilmeldinger;
-        this.udflugter = udflugter;
-        this.hoteller = hoteller;
-        this.adminstrator = adminstrator;
+    }
+
+    public int getDagsPris() {
+        return dagsPris;
     }
 
     public ArrayList<Udflugt> getUdflugter() {
-        return udflugter;
+        return new ArrayList<>(udflugter);
     }
 
-    public void setAdminstrator(Adminstrator adminstrator) {
-        if (this.adminstrator != adminstrator) {
-            Adminstrator oldAdmin = this.adminstrator;
+    public void addTilmelding(Tilmelding tilmelding) {
+        if (!tilmeldinger.contains(tilmelding)) {
+            tilmeldinger.add(tilmelding);
+        }
+    }
+
+    public void removeTilmelding(Tilmelding tilmelding) {
+        tilmeldinger.remove(tilmelding);
+    }
+
+    public void addHotel(Hotel hotel) {
+        if (!hoteller.contains(hotel)) {
+            hoteller.add(hotel);
+        }
+    }
+
+    public void removeHotel(Hotel hotel) {
+        hoteller.remove(hotel);
+    }
+
+    public void setAdministrator(Administrator administrator) {
+        if (this.administrator != administrator) {
+            Administrator oldAdmin = this.administrator;
             if (oldAdmin != null) {
                 oldAdmin.removeKonference(this);
             }
 
-            this.adminstrator = adminstrator;
-            if (adminstrator != null) {
-                adminstrator.addKonference(this);
+            this.administrator = administrator;
+            if (administrator != null) {
+                administrator.addKonference(this);
             }
         }
     }
@@ -57,5 +76,9 @@ public class Konference {
         if (udflugter.contains(udflugt)) {
             udflugter.remove(udflugt);
         }
+    }
+
+    public void setAdminstrator(Administrator administrator) {
+        this.administrator = administrator;
     }
 }

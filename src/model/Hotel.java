@@ -15,10 +15,24 @@ public class Hotel {
         this.beskrivelse = beskrivelse;
     }
 
-    public Service createService(Boolean wifi, Boolean mad, Boolean bad) {
-        Service service = new Service(wifi, mad, bad);
+    public Service createService(String navn, double pris) {
+        Service service = new Service(navn, pris);
         services.add(service);
         return service;
+    }
+
+    public ArrayList<HotelReservation> getReservations() {
+        return new ArrayList<>(reservations);
+    }
+
+    public void addHotelReservation(HotelReservation reservation) {
+        if (!reservations.contains(reservation)) {
+            reservations.add(reservation);
+        }
+    }
+
+    public void removeHotelReservation(HotelReservation reservation) {
+        reservations.remove(reservation);
     }
 
     public String getName() {

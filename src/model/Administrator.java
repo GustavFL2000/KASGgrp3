@@ -3,12 +3,11 @@ package model;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 
-public class Adminstrator {
+public class Administrator {
     private String navn;
     private ArrayList<Konference> konferencer = new ArrayList<>();
 
-    public Adminstrator(ArrayList<Konference> konferencer, String navn) {
-        this.konferencer = konferencer;
+    public Administrator(String navn) {
         this.navn = navn;
     }
 

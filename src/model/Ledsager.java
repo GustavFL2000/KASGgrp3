@@ -7,6 +7,14 @@ public class Ledsager {
 
     private ArrayList<Udflugt> udflugter = new ArrayList<>();
 
+    public Ledsager(String navn) {
+        this.navn = navn;
+    }
+
+    public String getNavn() {
+        return navn;
+    }
+
     public void addUdflugt(Udflugt udflugt) {
         if (!udflugter.contains(udflugt)) {
             udflugter.add(udflugt);
@@ -14,8 +22,14 @@ public class Ledsager {
         }
     }
 
+    public ArrayList<Udflugt> getUdflugter() {
+        return new ArrayList<>(udflugter);
+    }
+
     void _addUdflugt(Udflugt udflugt) {
-        udflugter.add(udflugt);
+        if (!udflugter.contains(udflugt)) {
+            udflugter.add(udflugt);
+        }
     }
 
 

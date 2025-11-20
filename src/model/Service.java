@@ -1,34 +1,27 @@
 package model;
 
 public class Service {
-    private Boolean wifi;
-    private Boolean bad;
-    private Boolean mad;
+    private String navn;
+    private double pris;
 
-    public Service(Boolean wifi, Boolean bad, Boolean mad) {
-        this.wifi = wifi;
-        this.bad = bad;
-        this.mad = mad;
+    public Service(String navn, double pris) {
+        this.navn = navn;
+        this.pris = pris;
     }
 
-    public Boolean hasWifi() {
-        return wifi;
+    public String getNavn() {
+        return navn;
     }
 
-    public Boolean hasBad() {
-        return bad;
-    }
-
-    public Boolean hasMad() {
-        return mad;
+    public double getPris() {
+        return pris;
     }
 
     @Override
     public String toString() {
         return "Service{" +
-                "wifi=" + wifi +
-                ", bad=" + bad +
-                ", mad=" + mad +
+                "navn='" + navn + '\'' +
+                ", pris=" + pris +
                 '}';
     }
 }

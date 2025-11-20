@@ -59,6 +59,14 @@ public class Deltager {
         return erForedragsholder;
     }
 
+    public Ledsager getLedsager() {
+        return ledsager;
+    }
+
+    public void setLedsager(Ledsager ledsager) {
+        this.ledsager = ledsager;
+    }
+
     public ArrayList<Tilmelding> getTilmeldinger() {
         return new ArrayList<>(tilmeldinger);
     }
