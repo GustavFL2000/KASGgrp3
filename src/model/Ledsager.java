@@ -5,6 +5,8 @@ import java.util.ArrayList;
 public class Ledsager {
     private String navn;
 
+    private Deltager deltager;
+
     private ArrayList<Udflugt> udflugter = new ArrayList<>();
 
     public Ledsager(String navn) {
@@ -13,6 +15,10 @@ public class Ledsager {
 
     public String getNavn() {
         return navn;
+    }
+
+    public Deltager getDeltager() {
+        return deltager;
     }
 
     public void addUdflugt(Udflugt udflugt) {
