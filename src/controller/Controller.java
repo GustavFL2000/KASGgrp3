@@ -100,6 +100,7 @@ public class Controller {
     public static double calculateTotalPrice(Tilmelding tilmelding) {
         return tilmelding.getTotalPris();
     }
+}
 
 // -------------------------------------------------------------------------
 
