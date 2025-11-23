@@ -27,12 +27,9 @@ public class Tilmelding {
             totalPris += konference.getDagsPris() * antalDage;
         }
 
-        // Hotel reservation price and services
+        // Hotel reservation price (now calculated by HotelReservation)
         if (hotelReservation != null) {
-            totalPris += hotelReservation.getPris();
-            for (Service service : hotelReservation.getServices()) { // Assuming HotelReservation has getServices()
-                totalPris += service.getPris();
-            }
+            totalPris += hotelReservation.beregnPris();
         }
 
         // Excursion prices
@@ -68,12 +65,13 @@ public class Tilmelding {
         return hotelReservation;
     }
 
-    public HotelReservation createHotelreservation(boolean isDoubleRoom, double pris, Hotel hotel, Tilmelding tilmelding) {
+    public HotelReservation createHotelreservation(boolean isDoubleRoom, Hotel hotel) {
         if (this.hotelReservation != null) {
             // Potentially throw an exception or handle this case as per business rules
             System.out.println("Warning: Overwriting existing hotel reservation for this Tilmelding.");
         }
-        HotelReservation newReservation = new HotelReservation(isDoubleRoom, pris, hotel, tilmelding);
+        // Price is no longer passed here; it's calculated by the reservation itself.
+        HotelReservation newReservation = new HotelReservation(isDoubleRoom, hotel, this);
         this.hotelReservation = newReservation;
         return newReservation;
     }

@@ -37,7 +37,7 @@ public class Udflugt {
     public void addLedsager(Ledsager l) {
         if (!ledsagere.contains(l)) {
             ledsagere.add(l);
-            l._addUdflugt(this); // ensrettet kald
+            l._addUdflugt(this);
         }
     }
 

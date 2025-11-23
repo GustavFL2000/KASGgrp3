@@ -1,6 +1,7 @@
 package model;
 
-import java.lang.reflect.Array;
+import storage.Storage;
+
 import java.util.ArrayList;
 
 public class Administrator {
@@ -11,10 +12,15 @@ public class Administrator {
         this.navn = navn;
     }
 
+    public static Administrator create(String navn) {
+        Administrator admin = new Administrator(navn);
+        storage.Storage.addAdministrator(admin);
+        return admin;
+    }
+
     public ArrayList<Konference> getKonferencer() {
         return new ArrayList<>(konferencer);
     }
-
 
     public void addKonference(Konference konference){
         if (!konferencer.contains(konference)){
@@ -28,7 +34,16 @@ public class Administrator {
             konferencer.remove(konference);
             konference.setAdministrator(null);
         }
+    }
 
+    // Internal helpers used by Konference to avoid recursive calls
+    void _addKonference(Konference konference) {
+        if (!konferencer.contains(konference)) {
+            konferencer.add(konference);
         }
     }
 
+    void _removeKonference(Konference konference) {
+        konferencer.remove(konference);
+    }
+}
