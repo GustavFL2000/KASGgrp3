@@ -7,8 +7,6 @@ import java.time.LocalDate;
 public class Demo {
 
     public static void main(String[] args) {
-        // This method now contains the test data setup.
-        // It uses the new static "create" methods on the model classes.
         setupTestData();
 
         System.out.println("--- Starter Refaktoriseret Prisberegning Demonstration ---");
@@ -17,28 +15,28 @@ public class Demo {
         // --- SCENARIO 1: Standard deltager med alt ---
         System.out.println("--- SCENARIO 1: Standard deltager med ledsager, hotel og services ---");
         {
-            // Setup: Fetch objects from storage via the Storage class
+            // Setup: Få de nødvendige objekter fra storage
             Konference havOgHimmel = Storage.getKonferencer().stream().filter(k -> k.getNavn().equals("Hav og Himmel")).findFirst().get();
             Hotel denHvideSvane = havOgHimmel.getHoteller().stream().filter(h -> h.getNavn().equals("Den Hvide Svane")).findFirst().get();
             Service wifi = denHvideSvane.getServices().stream().filter(s -> s.getNavn().equals("WIFI")).findFirst().get();
             Udflugt egeskov = havOgHimmel.getUdflugter().stream().filter(u -> u.getNavn().equals("Egeskov")).findFirst().get();
             Udflugt byrundtur = havOgHimmel.getUdflugter().stream().filter(u -> u.getNavn().equals("Byrundtur i Odense inkl. Frokost")).findFirst().get();
 
-            // Create a new participant for this scenario
+            // lav deltager og ledsager
             Deltager finn = Deltager.create("Finn", "Egelunden 2", "DK", "1234", "finn@email.dk", false);
             Ledsager anja = finn.createLedsager("Anja");
 
-            // Create registration through the conference object
+            // lav tilmelding
             Tilmelding tilmelding = havOgHimmel.createTilmelding(finn, havOgHimmel.getStartDato(), havOgHimmel.getSlutDato(), 3);
 
             // Arrange
-            // Create reservation through the registration object
+            // lav hotelreservation med services og tilføj udflugter til ledsager
             HotelReservation reservation = tilmelding.createHotelreservation(true, denHvideSvane);
             reservation.addService(wifi);
             anja.addUdflugt(egeskov);
             anja.addUdflugt(byrundtur);
 
-            // Expected Price Calculation
+            // Forventet prisberegning
             double konferencePris = havOgHimmel.getDagsPris() * 3;
             double hotelPris = denHvideSvane.getDobbeltVærelsesPris() * 2; // 2 nights
             double servicePris = wifi.getPris();
@@ -48,7 +46,7 @@ public class Demo {
             // Act
             double actualPrice = tilmelding.getTotalPris();
 
-            // Print results
+            // Resultater
             System.out.println("Beregner pris for: " + finn.getNavn());
             System.out.println("  - Konference (3 dage): " + konferencePris + " kr");
             System.out.println("  - Hotel (2 nætter, dobbeltværelse): " + hotelPris + " kr");
@@ -79,15 +77,15 @@ public class Demo {
             // Arrange
             tilmelding.createHotelreservation(false, hoetelPhoenix); // false for single room
 
-            // Expected Price Calculation
+            // forventet prisberegning
             double konferencePris = 0; // Foredragsholder
-            double hotelPris = hoetelPhoenix.getEnkeltVærelsesPris() * 2; // 2 nights
+            double hotelPris = hoetelPhoenix.getEnkeltVærelsesPris() * 2; // 2 nætter
             double expectedPrice = konferencePris + hotelPris;
 
             // Act
             double actualPrice = tilmelding.getTotalPris();
 
-            // Print results
+            // resultater
             System.out.println("Beregner pris for: " + mette.getNavn() + " (Foredragsholder)");
             System.out.println("  - Konference (3 dage): " + konferencePris + " kr");
             System.out.println("  - Hotel (2 nætter, enkeltværelse): " + hotelPris + " kr");
@@ -112,14 +110,14 @@ public class Demo {
             
             Tilmelding tilmelding = havOgHimmel.createTilmelding(keld, havOgHimmel.getStartDato(), havOgHimmel.getSlutDato(), 3);
 
-            // Expected Price Calculation
+            // Eforventet prisberegning
             double konferencePris = havOgHimmel.getDagsPris() * 3;
             double expectedPrice = konferencePris;
 
             // Act
             double actualPrice = tilmelding.getTotalPris();
 
-            // Print results
+            // resultater
             System.out.println("Beregner pris for: " + keld.getNavn());
             System.out.println("  - Konference (3 dage): " + konferencePris + " kr");
             System.out.println("------------------------------------------");

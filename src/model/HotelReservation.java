@@ -20,7 +20,7 @@ public class HotelReservation {
 
     public void addService(Service service) {
         if (!services.contains(service)) {
-            // Ensure the service is actually offered by the hotel
+            // Se omhotellet tilbyder servicen
             if (hotel.getServices().contains(service)) {
                 services.add(service);
             }

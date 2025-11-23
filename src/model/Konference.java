@@ -77,7 +77,7 @@ public class Konference {
     public Udflugt createUdflugt(String navn, double pris, LocalDate tidspunkt) {
         Udflugt u = new Udflugt(navn, pris, tidspunkt, this);
         udflugter.add(u);
-        storage.Storage.addUdflugt(u); // Add to central storage
+        storage.Storage.addUdflugt(u); //Tilføj til storrage
         return u;
     }
 
@@ -90,7 +90,7 @@ public class Konference {
         Tilmelding tilmelding = new Tilmelding(antalDage, ankomstDato, afrejseDato, this, deltager);
         this.addTilmelding(tilmelding);
         deltager.addTilmelding(tilmelding);
-        storage.Storage.addTilmelding(tilmelding); // Add to central storage
+        storage.Storage.addTilmelding(tilmelding); //Tilføj til storage
         return tilmelding;
     }
 }

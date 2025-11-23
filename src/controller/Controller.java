@@ -12,7 +12,6 @@ public class Controller {
     // Konference
 
 
-
     public static void removeKonference(Konference konference) {
         Storage.removeKonference(konference);
     }
@@ -33,7 +32,6 @@ public class Controller {
     // Administrator
 
 
-
     public static void setAdministratorOfKonference(Konference konference, Administrator admin) {
         konference.setAdministrator(admin);
     }
@@ -41,7 +39,6 @@ public class Controller {
 
     // -------------------------------------------------------------------------
     // Deltager
-
 
 
     public static void removeDeltager(Deltager deltager) {
@@ -60,7 +57,6 @@ public class Controller {
     // Ledsager
 
 
-
     public static void addUdflugtToLedsager(Ledsager ledsager, Udflugt udflugt) {
         ledsager.addUdflugt(udflugt);
     }
@@ -70,14 +66,12 @@ public class Controller {
     // Firma
 
 
-
     public static ArrayList<Firma> getFirmaer() {
         return Storage.getFirmaer();
     }
 
     // -------------------------------------------------------------------------
     // Hotel
-
 
 
     public static ArrayList<Hotel> getHoteller() {
@@ -96,9 +90,6 @@ public class Controller {
     // Tilmelding
 
 
-
-
-
     public static ArrayList<Tilmelding> getTilmeldinger() {
         return Storage.getTilmeldinger();
     }
@@ -110,5 +101,5 @@ public class Controller {
         return tilmelding.getTotalPris();
     }
 
-    // -------------------------------------------------------------------------
-    // Oversigter
+// -------------------------------------------------------------------------
+

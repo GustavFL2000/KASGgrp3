@@ -36,7 +36,7 @@ public class Administrator {
         }
     }
 
-    // Internal helpers used by Konference to avoid recursive calls
+    // hjælpe funktion brugt af Konference for at undgå rekursion
     void _addKonference(Konference konference) {
         if (!konferencer.contains(konference)) {
             konferencer.add(konference);

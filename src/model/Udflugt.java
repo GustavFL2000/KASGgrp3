@@ -5,12 +5,12 @@ import java.util.ArrayList;
 
 public class Udflugt {
     private String navn;
-    private double pris; // Changed to double
+    private double pris;
     private LocalDate tidspunkt;
     private ArrayList<Ledsager> ledsagere = new ArrayList<>();
     private Konference konference;
 
-    public Udflugt(String navn, double pris, LocalDate tidspunkt, Konference konference) { // Updated constructor
+    public Udflugt(String navn, double pris, LocalDate tidspunkt, Konference konference) {
         this.navn = navn;
         this.pris = pris;
         this.tidspunkt = tidspunkt;

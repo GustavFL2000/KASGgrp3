@@ -38,7 +38,7 @@ public class Firma {
         }
     }
 
-    // Internal helpers used by Deltager to avoid recursion
+    // hjælpe funktion brugt af Deltager for at undgå rekursion
     void _addDeltager(Deltager deltager) {
         if (!deltagere.contains(deltager)) {
             deltagere.add(deltager);

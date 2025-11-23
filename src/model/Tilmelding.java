@@ -9,7 +9,7 @@ public class Tilmelding {
     private LocalDate afrejseDato;
     private Konference konference;
     private Deltager deltager;
-    private HotelReservation hotelReservation; // Changed to single object
+    private HotelReservation hotelReservation; // Association to HotelReservation
 
     public Tilmelding(int antalDage, LocalDate ankomstDato, LocalDate afrejseDato, Konference konference, Deltager deltager) {
         this.antalDage = antalDage;
@@ -22,17 +22,17 @@ public class Tilmelding {
     public double getTotalPris() {
         double totalPris = 0;
 
-        // Conference fee
+        // Konference pris
         if (!deltager.isErForedragsholder()) {
             totalPris += konference.getDagsPris() * antalDage;
         }
 
-        // Hotel reservation price (now calculated by HotelReservation)
+        // Hotel reservation pris
         if (hotelReservation != null) {
             totalPris += hotelReservation.beregnPris();
         }
 
-        // Excursion prices
+        // udflugt priss
         if (deltager.getLedsager() != null) {
             for (Udflugt udflugt : deltager.getLedsager().getUdflugter()) {
                 totalPris += udflugt.getPris();
@@ -70,7 +70,6 @@ public class Tilmelding {
             // Potentially throw an exception or handle this case as per business rules
             System.out.println("Warning: Overwriting existing hotel reservation for this Tilmelding.");
         }
-        // Price is no longer passed here; it's calculated by the reservation itself.
         HotelReservation newReservation = new HotelReservation(isDoubleRoom, hotel, this);
         this.hotelReservation = newReservation;
         return newReservation;
