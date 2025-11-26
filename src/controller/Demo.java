@@ -144,10 +144,35 @@ public class Demo {
                 admin
         );
 
+        Konference Atlanta = Controller.createKonference(
+                "Atlanata",
+                "Aarhus",
+                LocalDate.of(2025, 11, 28),
+                LocalDate.of(2025, 11, 30),
+                1500,
+                admin
+        );
+
+        Deltager mette = Controller.createDeltager(
+                "Mette", "Vej 1", "DK", "4321", "mette@email.dk", false
+        );
+
+        Deltager patrickMortensen = Controller.createDeltager(
+                "patrick Mortensen", "Vej 2", "DK", "43211234", "patrick@email.dk", true
+        );
+
         Hotel denHvideSvane = Controller.createHotel(
                 "Den Hvide Svane", "Overgade 25", "...", 1050, 1250
         );
         denHvideSvane.createService("WIFI", 50);
+
+        Hotel casinoRoyal = Controller.createHotel(
+                "Casino Royal", "Domkirken", "...", 20000, 40000
+        );
+        casinoRoyal.createService("WIFI", 150);
+        casinoRoyal.createService("Morgenmad", 250);
+        casinoRoyal.createService("Spa adgang", 500);
+
 
         Hotel hotelPhoenix = Controller.createHotel(
                 "Hotel Phønix", "Vestergade 75", "...", 700, 800
@@ -164,6 +189,9 @@ public class Demo {
         havOgHimmel.addHotel(hotelPhoenix);
         havOgHimmel.addHotel(tusind);
 
+        Atlanta.addHotel(casinoRoyal);
+
+
         Controller.createUdflugtForKonference(
                 havOgHimmel, "Byrundtur i Odense inkl. Frokost",
                 125.0, LocalDate.of(2025, 11, 28)
@@ -171,6 +199,21 @@ public class Demo {
 
         Controller.createUdflugtForKonference(
                 havOgHimmel, "Egeskov",
+                75.0, LocalDate.of(2025, 11, 29)
+        );
+
+        Controller.createUdflugtForKonference(
+                Atlanta, "Frokost på Aros",
+                200.0, LocalDate.of(2025, 11, 30)
+        );
+
+        Controller.createUdflugtForKonference(
+                Atlanta, "Tur på CeresPark Vejlby",
+                125.0, LocalDate.of(2025, 11, 28)
+        );
+
+        Controller.createUdflugtForKonference(
+                Atlanta, "Party i latinerkvarteret",
                 75.0, LocalDate.of(2025, 11, 29)
         );
 
