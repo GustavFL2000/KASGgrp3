@@ -1,4 +1,5 @@
 # KAS 2025
+Github link: https://github.com/GustavFL2000/KASGgrp3
 ## Gruppe 3:
 - Rasmus Jørgensen eaa25rj
 - Gustav Lassen eaa25gfl
@@ -14,4 +15,3 @@
 - Gem udflugtoversigt
 - Se diverse oversigter (Tilmeldinger, ledsger, og alt fra konference til den totale pris)
 - Søg efter deltager (Search by name)
-  
