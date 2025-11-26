@@ -10,7 +10,8 @@
 - Opret deltager
 - Opret ledsager
 - Opret tilmedling
-- Tilmeld ledsager til udflugt
+- Tilmeld ledsager til udflugt (Ledsager skal oprettes først)
+- Gem udflugtoversigt
 - Se diverse oversigter (Tilmeldinger, ledsger, og alt fra konference til den totale pris)
 - Søg efter deltager (Search by name)
   

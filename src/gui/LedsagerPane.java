@@ -83,9 +83,18 @@ public class LedsagerPane extends GridPane {
 
     private void tilknytUdflugter() {
         Deltager deltager = deltagerListView.getSelectionModel().getSelectedItem();
-        if (deltager == null || deltager.getLedsager() == null) return;
-        for (Udflugt udflugt : udflugtListView.getSelectionModel().getSelectedItems()) {
-            deltager.getLedsager().addUdflugt(udflugt);
+        if (deltager == null || deltager.getLedsager() == null) {
+            labelStatus.setText("Vælg en deltager med en ledsager.");
+            return;
         }
+
+        Ledsager ledsager = deltager.getLedsager();
+
+        for (Udflugt udflugt : udflugtListView.getSelectionModel().getSelectedItems()) {
+            ledsager.addUdflugt(udflugt);
+        }
+
+        labelStatus.setText("Udflugter tilknyttet ledsageren: " + ledsager.getNavn());
     }
+
 }
