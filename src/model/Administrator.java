@@ -1,7 +1,5 @@
 package model;
 
-import storage.Storage;
-
 import java.util.ArrayList;
 
 public class Administrator {
@@ -12,38 +10,24 @@ public class Administrator {
         this.navn = navn;
     }
 
-    public static Administrator create(String navn) {
-        Administrator admin = new Administrator(navn);
-        storage.Storage.addAdministrator(admin);
-        return admin;
-    }
+    public String getNavn() { return navn; }
+    public ArrayList<Konference> getKonferencer() { return new ArrayList<>(konferencer); }
 
-    public ArrayList<Konference> getKonferencer() {
-        return new ArrayList<>(konferencer);
-    }
-
-    public void addKonference(Konference konference){
-        if (!konferencer.contains(konference)){
-            konferencer.add(konference);
-            konference.setAdministrator(this);
+    public void addKonference(Konference k) {
+        if (!konferencer.contains(k)) {
+            konferencer.add(k);
+            k.setAdministrator(this);
         }
     }
 
-    public void removeKonference(Konference konference){
-        if (konferencer.contains(konference)){
-            konferencer.remove(konference);
-            konference.setAdministrator(null);
+    // internal helper for Konference.setAdministrator to avoid recursion
+    void _addKonference(Konference k) {
+        if (!konferencer.contains(k)) {
+            konferencer.add(k);
         }
     }
 
-    // hjælpe funktion brugt af Konference for at undgå rekursion
-    void _addKonference(Konference konference) {
-        if (!konferencer.contains(konference)) {
-            konferencer.add(konference);
-        }
-    }
-
-    void _removeKonference(Konference konference) {
-        konferencer.remove(konference);
+    void _removeKonference(Konference k) {
+        konferencer.remove(k);
     }
 }

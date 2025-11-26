@@ -6,54 +6,44 @@ public class HotelReservation {
     private boolean isDoubleRoom;
     private Hotel hotel;
     private Tilmelding tilmelding;
-    private final ArrayList<Service> services = new ArrayList<>();
+    private ArrayList<Service> services = new ArrayList<>();
 
     public HotelReservation(boolean isDoubleRoom, Hotel hotel, Tilmelding tilmelding) {
         this.isDoubleRoom = isDoubleRoom;
         this.hotel = hotel;
         this.tilmelding = tilmelding;
+        if (hotel != null) hotel.addReservation(this);
     }
 
-    public ArrayList<Service> getServices() {
-        return new ArrayList<>(services);
-    }
+    // Gettere
 
-    public void addService(Service service) {
-        if (!services.contains(service)) {
-            // Se omhotellet tilbyder servicen
-            if (hotel.getServices().contains(service)) {
-                services.add(service);
-            }
+    public Hotel getHotel() { return hotel; }
+    public Tilmelding getTilmelding() { return tilmelding; }
+    public ArrayList<Service> getServices() { return new ArrayList<>(services); }
+
+    // Relationer
+    public void addService(Service s) {
+        if (!services.contains(s)) {
+            services.add(s);
         }
     }
 
+    // beregn pris eksempel
     public double beregnPris() {
-        double totalPris = 0;
 
-        // Base room price
-        double værelsesPris = isDoubleRoom ? hotel.getDobbeltVærelsesPris() : hotel.getEnkeltVærelsesPris();
+        // antal nætter = afrejse - ankomst
+        int nights = tilmelding.getAfrejseDato().getDayOfYear()
+                - tilmelding.getAnkomstDato().getDayOfYear();
 
-        // Calculate number of nights from Tilmelding
-        long antalNætter = tilmelding.getAnkomstDato().until(tilmelding.getAfrejseDato()).getDays();
-        totalPris += værelsesPris * antalNætter;
+        // base room price pr. nat
+        double roomPrice = isDoubleRoom ? hotel.getPrisDobbelt() : hotel.getPrisEnkelt();
 
-        // Add price of selected services
-        for (Service service : services) {
-            totalPris += service.getPris();
-        }
+        // servicepris pr. nat
+        double servicePris = services.stream()
+                .mapToDouble(Service::getPris)
+                .sum();
 
-        return totalPris;
+        return (roomPrice * nights) + (servicePris * nights);
     }
 
-    public Tilmelding getTilmelding() {
-        return tilmelding;
-    }
-
-    public Hotel getHotel() {
-        return hotel;
-    }
-
-    public boolean isDoubleRoom() {
-        return isDoubleRoom;
-    }
 }

@@ -1,42 +1,76 @@
 package gui;
 
+import controller.Demo;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
-import javafx.scene.layout.GridPane;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+
 
 public class Gui extends Application {
 
+    private ConferenceOverviewPane conferencePane;
+    private ParticipantPane participantPane;
+    private CreateTilmeldingPane tilmeldingPane;
+    private LedsagerPane ledsagerPane;
+    private UdflugtOversigtPane udflugtOversigtPane;
+    private HotelOversigtPane hotelOversigtPane;
+    private ParticipantSearchPane participantSearchPane;
+    private ConferenceParticipantsPane conferenceParticipantsPane;
+
+    @Override
     public void start(Stage stage) {
-        stage.setTitle("Gui Demo 1");
-        GridPane pane = new GridPane();
-        this.initContent(pane);
-        Scene scene = new Scene(pane);
+        Demo.setupTestData();
+        stage.setTitle("KAS Konference System");
+
+        BorderPane borderPane = new BorderPane();
+        borderPane.setPadding(new Insets(10));
+
+        // meny venstre side
+        VBox menu = new VBox(8);
+        menu.setPadding(new Insets(10));
+
+        Button btnKonferencer = new Button("Konferencer");
+        Button btnDeltagere = new Button("Deltagere");
+        Button btnTilmelding = new Button("Opret tilmelding");
+        Button btnLedsager = new Button("Ledsager / Udflugter");
+        Button btnUdflugtsOversigt = new Button("Udflugts-oversigt");
+        Button btnHotelOversigt = new Button("Hotel-oversigt");
+        Button btnSøgDeltager = new Button("Søg deltager");
+        Button btnKonfDeltagere = new Button("Deltagere (konf)");
+
+        menu.getChildren().addAll(btnKonferencer, btnDeltagere, btnTilmelding, btnLedsager,
+                btnUdflugtsOversigt, btnHotelOversigt, btnSøgDeltager, btnKonfDeltagere);
+        borderPane.setLeft(menu);
+
+        // Panerler
+        conferencePane = new ConferenceOverviewPane();
+        participantPane = new ParticipantPane();
+        tilmeldingPane = new CreateTilmeldingPane();
+        ledsagerPane = new LedsagerPane();
+        udflugtOversigtPane = new UdflugtOversigtPane();
+        hotelOversigtPane = new HotelOversigtPane();
+        participantSearchPane = new ParticipantSearchPane();
+        conferenceParticipantsPane = new ConferenceParticipantsPane();
+
+        // Default view
+        borderPane.setCenter(conferencePane);
+
+        // menu knapper
+        btnKonferencer.setOnAction(e -> { conferencePane.refresh(); borderPane.setCenter(conferencePane); });
+        btnDeltagere.setOnAction(e -> { participantPane.refresh(); borderPane.setCenter(participantPane); });
+        btnTilmelding.setOnAction(e -> { tilmeldingPane.refreshAll(); borderPane.setCenter(tilmeldingPane); });
+        btnLedsager.setOnAction(e -> { ledsagerPane.refresh(); borderPane.setCenter(ledsagerPane); });
+        btnUdflugtsOversigt.setOnAction(e -> { udflugtOversigtPane.refresh(); borderPane.setCenter(udflugtOversigtPane); });
+        btnHotelOversigt.setOnAction(e -> { hotelOversigtPane.refresh(); borderPane.setCenter(hotelOversigtPane); });
+        btnSøgDeltager.setOnAction(e -> { participantSearchPane.refresh(); borderPane.setCenter(participantSearchPane); });
+        btnKonfDeltagere.setOnAction(e -> { conferenceParticipantsPane.refresh(); borderPane.setCenter(conferenceParticipantsPane); });
+
+        Scene scene = new Scene(borderPane, 1000, 600);
         stage.setScene(scene);
         stage.show();
-    }
-
-    private void initContent(GridPane pane) {
-        pane.setGridLinesVisible(true);
-        pane.setPadding(new Insets(20));
-        pane.setHgap(10);
-        pane.setVgap(10);
-        Label lblName = new Label("Name:");
-        pane.add(lblName, 0, 0);
-        TextField txfName = new TextField();
-        pane.add(txfName, 1, 0, 2, 1);
-
-        Button btnUpperCase = new Button("Upper Case");
-        pane.add(btnUpperCase, 1, 1);
-        GridPane.setMargin(btnUpperCase, new Insets(10, 10, 0, 10));
-
-        Button btnLowerCase = new Button("Lower Case");
-        pane.add(btnLowerCase, 2, 1);
-        GridPane.setMargin(btnLowerCase, new Insets(10, 10, 0, 10));
-
     }
 }

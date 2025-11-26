@@ -9,19 +9,6 @@ public class Service {
         this.pris = pris;
     }
 
-    public String getNavn() {
-        return navn;
-    }
-
-    public double getPris() {
-        return pris;
-    }
-
-    @Override
-    public String toString() {
-        return "Service{" +
-                "navn='" + navn + '\'' +
-                ", pris=" + pris +
-                '}';
-    }
+    public String getNavn() { return navn; }
+    public double getPris() { return pris; }
 }

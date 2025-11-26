@@ -1,6 +1,6 @@
-import controller.Controller;
+package controller;
+
 import model.*;
-import storage.Storage;
 
 import java.time.LocalDate;
 
@@ -10,12 +10,12 @@ public class Demo {
 
         setupTestData();
 
-        System.out.println("--- Starter Refaktoriseret Prisberegning Demonstration ---\n");
+        System.out.println("--- Starter Prisberegning Demonstration ---\n");
 
-        // =====================================================================
-        // SCENARIO 1 – deltager med ledsager, hotel og services
-        // =====================================================================
-        System.out.println("--- SCENARIO 1 ---");
+
+        // Scenearie 1 – deltager med ledsager, hotel og services
+
+        System.out.println("--- SCENARIE 1 ---");
 
         // Find konference
         Konference havOgHimmel = Controller.getKonferenceByNavn("Hav og Himmel");
@@ -25,9 +25,9 @@ public class Demo {
 
         // Find service
         Service wifi = null;
-        for (Service s : denHvideSvane.getServices()) {
-            if (s.getNavn().equals("WIFI")) {
-                wifi = s;
+        for (Service service : denHvideSvane.getServices()) {
+            if (service.getNavn().equals("WIFI")) {
+                wifi = service;
                 break;
             }
         }
@@ -77,10 +77,9 @@ public class Demo {
         System.out.println();
 
 
-        // =====================================================================
-        // SCENARIO 2 – foredragsholder med hotel
-        // =====================================================================
-        System.out.println("--- SCENARIO 2 ---");
+        // Scenrie 2 – foredragsholder med hotel
+
+        System.out.println("--- SCENARIE 2 ---");
 
         Hotel hotelPhoenix = Controller.getHotelByNavn(havOgHimmel, "Hotel Phønix");
 
@@ -107,10 +106,9 @@ public class Demo {
         System.out.println();
 
 
-        // =====================================================================
-        // SCENARIO 3 – deltager uden hotel og uden ledsager
-        // =====================================================================
-        System.out.println("--- SCENARIO 3 ---");
+        // Scenarie 3 – deltager uden hotel og uden ledsager
+
+        System.out.println("--- SCENARIE 3 ---");
 
         Deltager keld = Controller.createDeltager(
                 "Keld", "Gade 3", "DK", "5555", "keld@email.dk", false
@@ -132,9 +130,7 @@ public class Demo {
         System.out.println(Math.abs(expected3 - actual3) < 0.01 ? "RESULTAT: KORREKT" : "FORKERT");
     }
 
-    // =====================================================================
     // Testdata via Controller
-    // =====================================================================
     public static void setupTestData() {
 
         Administrator admin = Controller.createAdministrator("Admin Navn");

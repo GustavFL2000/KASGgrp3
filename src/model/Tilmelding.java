@@ -4,14 +4,16 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class Tilmelding {
-    private int antalDage;
     private LocalDate ankomstDato;
     private LocalDate afrejseDato;
+    private int antalDage;
     private Konference konference;
     private Deltager deltager;
-    private HotelReservation hotelReservation; // Association to HotelReservation
+    private HotelReservation hotelReservation;
+    private ArrayList<Service> services = new ArrayList<>();
 
-    public Tilmelding(int antalDage, LocalDate ankomstDato, LocalDate afrejseDato, Konference konference, Deltager deltager) {
+    public Tilmelding(int antalDage, LocalDate ankomstDato, LocalDate afrejseDato,
+                      Konference konference, Deltager deltager) {
         this.antalDage = antalDage;
         this.ankomstDato = ankomstDato;
         this.afrejseDato = afrejseDato;
@@ -19,65 +21,39 @@ public class Tilmelding {
         this.deltager = deltager;
     }
 
+    // Gettere
+    public LocalDate getAnkomstDato() { return ankomstDato; }
+    public LocalDate getAfrejseDato() { return afrejseDato; }
+    public Konference getKonference() { return konference; }
+    public Deltager getDeltager() { return deltager; }
+    public HotelReservation getHotelReservation() { return hotelReservation; }
+
+
+    public HotelReservation createHotelReservation(boolean isDoubleRoom, Hotel hotel) {
+        HotelReservation hotelReservation1 = new HotelReservation(isDoubleRoom, hotel, this);
+        this.hotelReservation = hotelReservation1;
+        return hotelReservation1;
+    }
+
+
+    // Beregning
     public double getTotalPris() {
-        double totalPris = 0;
 
-        // Konference pris
-        if (!deltager.isErForedragsholder()) {
-            totalPris += konference.getDagsPris() * antalDage;
+        double prisKonference = deltager.isErForedragsholder() // er foredragsholder?
+                ? 0
+                : konference.getDagsPris() * antalDage;
+
+        double prisHotel = hotelReservation != null ? hotelReservation.beregnPris() : 0; // tjek for null
+
+        double prisServices = services.stream().mapToDouble(Service::getPris).sum(); // services pris
+
+        double prisUdflugter = 0;
+        if (deltager.getLedsager() != null) { // tjek for ledsager
+            prisUdflugter = deltager.getLedsager().getUdflugter().stream()
+                    .mapToDouble(Udflugt::getPris)
+                    .sum();
         }
 
-        // Hotel reservation pris
-        if (hotelReservation != null) {
-            totalPris += hotelReservation.beregnPris();
-        }
-
-        // udflugt priss
-        if (deltager.getLedsager() != null) {
-            for (Udflugt udflugt : deltager.getLedsager().getUdflugter()) {
-                totalPris += udflugt.getPris();
-            }
-        }
-        return totalPris;
-    }
-
-    public Konference getKonference() {
-        return konference;
-    }
-
-    public Deltager getDeltager() {
-        return deltager;
-    }
-
-    public int getAntalDage() {
-        return antalDage;
-    }
-
-    public LocalDate getAnkomstDato() {
-        return ankomstDato;
-    }
-
-    public LocalDate getAfrejseDato() {
-        return afrejseDato;
-    }
-
-    public HotelReservation getHotelReservation() {
-        return hotelReservation;
-    }
-
-    public HotelReservation createHotelreservation(boolean isDoubleRoom, Hotel hotel) {
-        if (this.hotelReservation != null) {
-            // Potentially throw an exception or handle this case as per business rules
-            System.out.println("Warning: Overwriting existing hotel reservation for this Tilmelding.");
-        }
-        HotelReservation newReservation = new HotelReservation(isDoubleRoom, hotel, this);
-        this.hotelReservation = newReservation;
-        return newReservation;
-    }
-
-    public void removeHotelReservation(HotelReservation hotelReservation) {
-        if (this.hotelReservation != null && this.hotelReservation.equals(hotelReservation)){
-            this.hotelReservation = null;
-        }
+        return prisKonference + prisHotel + prisServices + prisUdflugter; // total pris
     }
 }
